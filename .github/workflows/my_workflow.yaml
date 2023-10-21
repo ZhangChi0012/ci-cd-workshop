@@ -28,7 +28,8 @@ jobs:
           uses: rtCamp/action-slack-notify@v2
           env: 
             SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
-            SLACK_MESSAGE: 'Post Content :rocket:'
+            SLACK_TITLE: 'Scan failed'
+            SLACK_MESSAGE: 'Failed trivy scan, see uploaded report'
 
         - name: upload trivy result
           id: upload_trivy_result
@@ -36,7 +37,6 @@ jobs:
           with: 
             slack_token: ${{ secrets.SLACK_TOKEN }}
             channel_id: ${{ secrets.SLACK_CHANNEL_ID }}
-            content: 'file content'
             file_type: 'txt'
             file_name: 'trivy-result.txt'
             title: 'scan result'
