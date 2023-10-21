@@ -33,7 +33,7 @@ jobs:
                         {
                             "type": "header",
                             "text": {
-                                "type": "plain-text"
+                                "type": "plain-text",
                                 "text": "Zz"
                             }
                         }
