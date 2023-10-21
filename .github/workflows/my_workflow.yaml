@@ -7,7 +7,7 @@ on:
 
 jobs:
     my_first_ci:
-        runs-on: ubuntu-lastest
+        runs-on: ubuntu-latest
 
         steps:
         - name: check out
@@ -21,7 +21,8 @@ jobs:
             scan-type: 'fs'
             input: .
             severity: 'HIGH'
-            format: table
+            format: 'table'
+            output: 'trivy-result.txt'
 
         - name: send to slack
           id: send_to_slack
@@ -29,10 +30,33 @@ jobs:
           with:
             payload: |
                 {
-                "text": "failed"
+                    "blocks": [
+                        {
+                            "type": "header",
+                            "text": {
+                                "type": "plain-text"
+                                "text": "Zz"
+                                "emoji": true
+                            }
+                        }
+
+                    ]
                 }
           env: 
             SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
             SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
+
+        - name: upload trivy result
+          id: upload_trivy_result
+          uses: MeilCli/slack-upload-file@v3
+          with: 
+            slack_token: ${{ secrets.SLACK_TOKEN }}
+            channel_id: ${{ secrets.SLACK_CHANNEL_ID }}
+            content: 'file content'
+            file_type: 'text'
+            file_name: 'trivy-result.txt'
+            title: 'scan result'
+            initial_comment: 'post by Zz'
+
 
 
