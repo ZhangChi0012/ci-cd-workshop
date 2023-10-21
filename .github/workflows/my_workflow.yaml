@@ -25,25 +25,10 @@ jobs:
 
         - name: send to slack
           id: send_to_slack
-          uses: slackapi/slack-github-action@v1.24.0
-          with: 
-            payload: |
-                {
-                    "text":"Zz",
-                    "blocks": [
-                        {
-                            "type": "section",
-                            "text":{
-                                "type": "mrkdwn",
-                                "text": "Zz"
-                            }
-                        }
-                    ]
-                }
+          uses: rtCamp/action-slack-notify@v2
           env: 
             SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-            SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
-
+            
         - name: upload trivy result
           id: upload_trivy_result
           uses: MeilCli/slack-upload-file@v3
