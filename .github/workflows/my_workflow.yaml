@@ -27,8 +27,8 @@ jobs:
           id: send_to_slack
           uses: rtCamp/action-slack-notify@v2
           env: 
-            SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-            
+            SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
+
         - name: upload trivy result
           id: upload_trivy_result
           uses: MeilCli/slack-upload-file@v3
