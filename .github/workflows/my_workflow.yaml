@@ -29,16 +29,6 @@ jobs:
           with:
             payload: |
                 {
-                    "blocks": [
-                        {
-                            "type": "header",
-                            "text": {
-                                "type": "plain-text",
-                                "text": "Zz"
-                            }
-                        }
-
-                    ]
                 }
           env: 
             SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
