@@ -36,7 +36,8 @@ jobs:
           with: 
             slack_token: ${{ secrets.SLACK_TOKEN }}
             channel_id: ${{ secrets.SLACK_CHANNEL_ID }}
-            file_type: 'text'
+            content: 'file content'
+            file_type: 'txt'
             file_name: 'trivy-result.txt'
             title: 'scan result'
             initial_comment: 'post by Zz'
