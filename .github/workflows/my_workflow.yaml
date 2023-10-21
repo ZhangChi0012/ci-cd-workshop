@@ -19,7 +19,6 @@ jobs:
           uses: aquasecurity/trivy-action@master
           with:
             scan-type: 'fs'
-            input: .
             severity: 'HIGH'
             format: 'table'
             output: 'trivy-result.txt'
