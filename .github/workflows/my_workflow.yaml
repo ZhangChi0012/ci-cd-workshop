@@ -29,7 +29,9 @@ jobs:
           env: 
             SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
             SLACK_TITLE: 'Scan failed'
-            SLACK_MESSAGE: 'Failed trivy scan, see uploaded report'
+            SLACK_MESSAGE: |
+                Failed trivy scan, see uploaded report
+                <e1221818@u.nus.edu|hiuijuijijjjuoju>
 
         - name: upload trivy result
           id: upload_trivy_result
