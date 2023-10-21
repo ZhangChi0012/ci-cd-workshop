@@ -9,7 +9,7 @@ jobs:
     my_first_ci:
         runs-on: ubuntu-latest
 
-        if: '!startsWith(github.event.head_commit.message, ' #NORUN')'
+        if: '!startsWith(github.event.head_commit.message,' #NORUN')'
 
         steps:
         - name: check out
