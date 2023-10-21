@@ -1,0 +1,18 @@
+name: my workflow
+
+on:
+    push:
+        branches:
+            - 'v[0-9]+\.+[0-9]+'
+
+jobs:
+    my_first_ci:
+        runs-on: ubuntu-lastest
+
+        steps:
+        - name: check out code
+          id: check_out_code
+          uses: actions/checkout@v4
+          
+
+
