@@ -10,12 +10,29 @@ jobs:
         runs-on: ubuntu-lastest
 
         steps:
-        - name: check out code
-          id: check_out_code
+        - name: check out
+          id: check_out
           uses: actions/checkout@v4
 
-          
-          
-          
+        - name: scanning
+          id: scanning
+          uses: aquasecurity/trivy-action@master
+          with:
+            scan-type: 'fs'
+            input: .
+            severity: 'HIGH'
+            format: table
+
+        - name: send to slack
+          id: send_to_slack
+          uses: slackapi/slack-github-action@v1.24.0
+          with:
+            payload: |
+                {
+                "text": "failed"
+                }
+          env: 
+            SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+            SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
 
 
