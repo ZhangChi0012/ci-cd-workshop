@@ -79,7 +79,7 @@ jobs:
           with:
             context: fortunes_2023_10_15-14_13_50/fortunes
             push: true
-            tags: Zz/img:${{ github.event.head_commit.message }}
+            tags: zz/img:${{ github.event.head_commit.message }} #repository name must be lowercase
           
 
 
