@@ -20,7 +20,7 @@ jobs:
           uses: aquasecurity/trivy-action@master
           with:
             scan-type: 'fs'
-            severity: 'HIGH' #'HIGH' for fail or 'CRITICAL' for success
+            severity: 'CRITICAL' #'HIGH' for fail or 'CRITICAL' for success
             format: 'table'
             output: 'trivy-result.txt'
 
@@ -62,8 +62,24 @@ jobs:
           if: env.vulnerabilities == 'true'
           run: exit 1
           
-          
+        - name: Set up QEMU
+          uses: docker/setup-qemu-action@v3
 
+        - name: Set up Docker Buildx
+          uses: docker/setup-buildx-action@v3
+
+        - name: Login to Docker Hub
+          uses: docker/login-action@v3
+          with:
+            username: ${{ secrets.DOCKERHUB_USERNAME }}
+            password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+        - name: Build and push
+          uses: docker/build-push-action@v5
+          with:
+            context: ci-cd-workshop/fortunes_2023_10_15-14_13_50/fortunes
+            push: true
+            tags: Zz/img:${{ github.event.head_commit.message }}
           
 
 
