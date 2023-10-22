@@ -37,7 +37,7 @@ jobs:
         
         - name: send to slack
           id: send_to_slack
-          if: env.vulnerabilities == 'true'
+          if: env.vulnerabilities == 'false'
           uses: rtCamp/action-slack-notify@v2
           env: 
               SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
@@ -59,8 +59,15 @@ jobs:
   
         - name: fail the job
           id: fail_the_job
-          if: env.vulnerabilities == 'true'
+          if: env.vulnerabilities == 'false'
           run: exit 1
+
+        - name: test
+          id: test
+          uses: rtCamp/action-slack-notify@v2
+          env: 
+            SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
+
           
 
 
