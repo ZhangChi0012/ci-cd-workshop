@@ -20,7 +20,7 @@ jobs:
           uses: aquasecurity/trivy-action@master
           with:
             scan-type: 'fs'
-            severity: 'HIGH' #'HIGH' or 'CRITICAL'
+            severity: 'CRITICAL' #'HIGH' or 'CRITICAL'
             format: 'table'
             output: 'trivy-result.txt'
 
@@ -37,7 +37,7 @@ jobs:
         
         - name: send to slack
           id: send_to_slack
-          if: env.vulnerabilities == 'false'
+          if: env.vulnerabilities == 'true'
           uses: rtCamp/action-slack-notify@v2
           env: 
               SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
@@ -48,7 +48,7 @@ jobs:
   
         - name: upload trivy result
           id: upload_trivy_result
-          if: env.vulnerabilities == 'false'
+          if: env.vulnerabilities == 'true'
           uses: MeilCli/slack-upload-file@v3
           with: 
               slack_token: ${{ secrets.SLACK_TOKEN }}
