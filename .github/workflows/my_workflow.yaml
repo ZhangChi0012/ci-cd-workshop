@@ -20,7 +20,7 @@ jobs:
           uses: aquasecurity/trivy-action@master
           with:
             scan-type: 'fs'
-            severity: 'CRITICAL' #'HIGH' for fail or 'CRITICAL' for success
+            severity: 'HIGH' #'HIGH' for fail or 'CRITICAL' for success
             format: 'table'
             output: 'trivy-result.txt'
 
@@ -80,7 +80,7 @@ jobs:
             context: fortunes_2023_10_15-14_13_50/fortunes
             push: true
             tags: zhangchi0012/cicd-worshop:${{ github.event.head_commit.message }} #repository name must be lowercase
-            
+
           
 
 
