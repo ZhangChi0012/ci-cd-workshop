@@ -23,28 +23,46 @@ jobs:
             severity: 'HIGH' #'HIGH' or 'CRITICAL'
             format: 'table'
             output: 'trivy-result.txt'
-            exit-code: 1
 
+        
+
+        - name: Check Trivy Scan Results
+          id: check_results
+          run: |
+            if [[ -s trivy-result.txt ]]; then
+              echo "Trivy found vulnerabilities."
+              echo "::set-output name=vulnerabilities::true"
+            else
+              echo "Trivy did not find any vulnerabilities."
+              echo "::set-output name=vulnerabilities::false"
+            fi
+        
         - name: send to slack
           id: send_to_slack
-          if: steps.scanning.outputs.exit-code == '1'
+          if: steps.check_results.outputs.vulnerabilities == 'true'
           uses: rtCamp/action-slack-notify@v2
           env: 
-            SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
-            SLACK_TITLE: 'Scan failed'
-            SLACK_MESSAGE: |
-                Failed trivy scan, see uploaded report
-                <mailtohttps://www.google.com/|hiuijuijijjjuoju>
-
+              SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
+              SLACK_TITLE: 'Scan failed'
+              SLACK_MESSAGE: |
+                  Failed trivy scan, see uploaded report
+                  <mailtohttps://www.google.com/|hiuijuijijjjuoju>
+  
         - name: upload trivy result
           id: upload_trivy_result
+          if: steps.check_results.outputs.vulnerabilities == 'true'
           uses: MeilCli/slack-upload-file@v3
           with: 
-            slack_token: ${{ secrets.SLACK_TOKEN }}
-            channel_id: ${{ secrets.SLACK_CHANNEL_ID }}
-            file_path: 'trivy-result.txt'
-            title: 'scan result'
-            initial_comment: 'post by Zz'
+              slack_token: ${{ secrets.SLACK_TOKEN }}
+              channel_id: ${{ secrets.SLACK_CHANNEL_ID }}
+              file_path: 'trivy-result.txt'
+              title: 'scan result'
+              initial_comment: 'post by Zz'
+  
+        - name: fail the job
+          id: fail_the_job
+          if: steps.check_results.outputs.vulnerabilities == 'true'
+          run: exit 1
 
 
 
