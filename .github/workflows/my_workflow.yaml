@@ -61,6 +61,7 @@ jobs:
           id: fail_the_job
           if: env.vulnerabilities == 'true'
           run: exit 1
+          
 
 
 
