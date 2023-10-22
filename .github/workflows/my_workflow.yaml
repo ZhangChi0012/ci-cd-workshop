@@ -24,17 +24,15 @@ jobs:
             format: 'table'
             output: 'trivy-result.txt'
 
-        
-
         - name: Check Trivy Scan Results
           id: check_results
           run: |
             if [[ -s trivy-result.txt ]]; then
               echo "Trivy found vulnerabilities."
-              echo "::set-output name=vulnerabilities::true"
+              echo "vulnerabilities=true" >> $GITHUB_ENV
             else
               echo "Trivy did not find any vulnerabilities."
-              echo "::set-output name=vulnerabilities::false"
+              echo "vulnerabilities=false" >> $GITHUB_ENV
             fi
         
         - name: send to slack
