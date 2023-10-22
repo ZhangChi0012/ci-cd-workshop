@@ -27,6 +27,7 @@ jobs:
 
         - name: send to slack
           id: send_to_slack
+          if: ${{ steps.scanning.outputs.exit-code }} == "1"
           uses: rtCamp/action-slack-notify@v2
           env: 
             SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
@@ -37,6 +38,7 @@ jobs:
 
         - name: upload trivy result
           id: upload_trivy_result
+          if: ${{ steps.scanning.outputs.exit-code }} == "1"
           uses: MeilCli/slack-upload-file@v3
           with: 
             slack_token: ${{ secrets.SLACK_TOKEN }}
