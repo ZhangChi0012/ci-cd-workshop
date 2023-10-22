@@ -20,9 +20,10 @@ jobs:
           uses: aquasecurity/trivy-action@master
           with:
             scan-type: 'fs'
-            severity: 'HIGH'
+            severity: 'HIGH' #'HIGH' or 'CRITICAL'
             format: 'table'
             output: 'trivy-result.txt'
+            exit-code: '1'
 
         - name: send to slack
           id: send_to_slack
@@ -43,7 +44,7 @@ jobs:
             file_path: 'trivy-result.txt'
             title: 'scan result'
             initial_comment: 'post by Zz'
-            
+
 
 
 
