@@ -20,7 +20,7 @@ jobs:
           uses: aquasecurity/trivy-action@master
           with:
             scan-type: 'fs'
-            severity: 'HIGH' #'HIGH' or 'CRITICAL'
+            severity: 'HIGH' #'HIGH' for fail or 'CRITICAL' for success
             format: 'table'
             output: 'trivy-result.txt'
 
