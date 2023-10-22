@@ -44,7 +44,7 @@ jobs:
               SLACK_TITLE: 'Scan failed'
               SLACK_MESSAGE: |
                   Failed trivy scan, see uploaded report
-                  <mailtohttps://www.google.com/|hiuijuijijjjuoju>
+                  
   
         - name: upload trivy result
           id: upload_trivy_result
