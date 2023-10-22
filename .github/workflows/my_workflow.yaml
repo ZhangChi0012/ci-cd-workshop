@@ -24,7 +24,7 @@ jobs:
             format: 'table'
             output: 'trivy-result.txt'
 
-        - name: Check Trivy Scan Results
+        - name: check results
           id: check_results
           run: |
             if [[ -s trivy-result.txt ]]; then
