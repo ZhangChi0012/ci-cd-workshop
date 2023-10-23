@@ -102,5 +102,5 @@ jobs:
                 Name: ZHANG CHI
                 Matriculation number: A0286006H
                 Email: e1221818@u.nus.edu
-                Git: https://github.com/ZhangChi0012/ci-cd-workshop/tree/v0.0
+                Git: https://github.com/${{ github.repository }}
                 Image: https://hub.docker.com/repository/docker/zhangchi0012/cicd-worshop/general
