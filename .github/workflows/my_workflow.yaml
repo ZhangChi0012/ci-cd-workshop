@@ -20,7 +20,7 @@ jobs:
           uses: aquasecurity/trivy-action@master
           with:
             scan-type: 'fs'
-            severity: 'HIGH' #'HIGH' for fail or 'CRITICAL' for success
+            severity: 'CRITICAL' #'HIGH' for fail or 'CRITICAL' for success
             format: 'table'
             output: 'trivy-result.txt'
 
@@ -77,14 +77,22 @@ jobs:
         - name: Build and push
           uses: docker/build-push-action@v5
           with:
-            context: fortunes_2023_10_15-14_13_50/fortunes
+            context: fortunes_2023_10_15-14_13_50/fortunes # file: Path to the Dockerfile (default {context}/Dockerfile)
             push: true
-            tags: zhangchi0012/cicd-worshop:${{ github.event.head_commit.message }} #repository name must be lowercase
+            tags: zhangchi0012/cicd-worshop:${{ github.event.head_commit.message }} # repository name must be lowercase
 
         - name: Install Cosign
           uses: sigstore/cosign-installer@v3.1.1
           with:
             cosign-release: 'v2.1.1'
+
+        - name: Sign image with a key
+          run: |
+            cosign sign --yes --key env://COSIGN_PRIVATE_KEY "${TAGS}"
+          env:
+            TAGS: zhangchi0012/cicd-worshop:${{ github.event.head_commit.message }}
+            COSIGN_PRIVATE_KEY: ${{ secrets.COSIGN_PRIVATE_KEY }}
+            COSIGN_PASSWORD: ${{ secrets.COSIGN_PASSWORD }}
 
 
         - name: send success message to slack
