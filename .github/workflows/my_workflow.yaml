@@ -20,7 +20,7 @@ jobs:
           uses: aquasecurity/trivy-action@master
           with:
             scan-type: 'fs'
-            severity: 'CRITICAL' #'HIGH' for fail or 'CRITICAL' for success
+            severity: 'HIGH' #'HIGH' for fail or 'CRITICAL' for success
             format: 'table'
             output: 'trivy-result.txt'
 
@@ -102,6 +102,6 @@ jobs:
                 Name: ZHANG CHI
                 Matriculation number: A0286006H
                 Email: e1221818@u.nus.edu
-                Git: https://github.com/${{ github.repository }}
+                Git: https://github.com/${{ github.repository }}/tree/v0.0
                 Image: https://hub.docker.com/repository/docker/zhangchi0012/cicd-worshop/general
                 
