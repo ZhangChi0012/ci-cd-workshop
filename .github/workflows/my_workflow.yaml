@@ -28,10 +28,8 @@ jobs:
           id: check_results
           run: |
             if [[ -s trivy-result.txt ]]; then
-              echo "Trivy found vulnerabilities."
               echo "vulnerabilities=true" >> $GITHUB_ENV
             else
-              echo "Trivy did not find any vulnerabilities."
               echo "vulnerabilities=false" >> $GITHUB_ENV
             fi
         
@@ -55,7 +53,7 @@ jobs:
               channel_id: ${{ secrets.SLACK_CHANNEL_ID }}
               file_path: 'trivy-result.txt'
               title: 'scan result'
-              initial_comment: 'post by Zz'
+              initial_comment: 'scan report by ZHANG CHI'
   
         - name: fail the job
           id: fail_the_job
@@ -84,7 +82,7 @@ jobs:
         - name: Install Cosign
           uses: sigstore/cosign-installer@v3.1.1
           with:
-            cosign-release: 'v2.2.0'
+            cosign-release: 'v2.2.0' # should be the same version as the installed one ('cosign version' to check in terminal)
 
         - name: Sign image with a key
           run: |
